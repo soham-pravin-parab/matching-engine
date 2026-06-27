@@ -1,6 +1,5 @@
 
-#include <iostream>
-#include <map>
+#include <iostream> include <map>
 struct order{
 int id;
 char side;
@@ -45,9 +44,20 @@ void processorder(int id,char side,double price,int quantity){
      std::cout<<"Trade Executed! Price $ "<<bestAskPrice
               <<" |Quantity: "<<tradeQty<<std::endl;
 
-    if(currentSeller==0){
+
+    if(currentSeller->quantity==0){
+   order* temp = currentSeller;
    lowestAskLevel.head= currentSeller->next;
-   currentSeller=lowestAskLevel.head;
+   if(lowestAskLevel.head!=nullptr){
+     lowestAskLevel.head->prev = nullptr;
+} else{
+     lowestAskLevel.tail = nullptr;
+}
+currentSeller=lowestAskLevel.head;
+delete temp;
+} else{
+break;
+
 }
 }
 if(lowestAskLevel.head==nullptr){
@@ -78,8 +88,17 @@ break;
      <<" | Qty: "<<tradeQty<<std::endl;
 
      if(currentBuyer->quantity==0){
+     order* temp = currentBuyer;
      highestBidLevel.head=currentBuyer->next;
-     currentBuyer = highestBidLevel.head;
+     if(highestBidLevel.head!=nullptr){
+     highestBidLevel.head->prev=nullptr;
+} else{
+     highestBidLevel.tail=nullptr;
+}
+currentBuyer = highestBidLevel.head;
+delete temp;
+}else{
+break;
 }
 }
 if(highestBidLevel.head==nullptr){
@@ -88,6 +107,20 @@ if(highestBidLevel.head==nullptr){
 }else{
 break;
 }
+}
+if(newOrder->quantity>0){
+pricelevel& level = askbook[newOrder->price];
+level.price = newOrder->price;
+if(level.head==nullptr){
+level.head = newOrder;
+level.tail = newOrder;
+}else{
+level.tail->next = newOrder;
+newOrder->prev = level.tail;
+level.tail= newOrder;
+}
+} else{
+delete newOrder;
 }
 }
 
