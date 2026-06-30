@@ -125,37 +125,6 @@ delete newOrder;
 }
 }
 
-   if(side=='S'){
-   pricelevel& level = askbook[price];
-  level.price = price;
-
-  if(level.head==nullptr){
-   level.head=newOrder;
-   level.tail=newOrder;
-
-}
-  else{
-   level.tail->next = newOrder;
-   newOrder->prev = level.tail;
-   level.tail = newOrder;
-}
-   std::cout<<"sucessfully added Sell Order #"<<id<<" to the book"<<std::endl;
-  }
-  else if(side=='B'){
-  pricelevel& level = bidBook[price];
-  level.price = price;
-  if(level.head==nullptr){
-   level.head = newOrder ;
-   level.tail = newOrder;
-
-}
-  else{
-   level.tail->next = newOrder;
-   newOrder->prev = level.tail;
-   level.tail = newOrder;
-}
-std::cout<<"sucessfully added buyer #"<<id<<" to the book"<<std::endl;
-}
 }
 
 void printBook(){
