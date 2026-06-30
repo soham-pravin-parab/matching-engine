@@ -1,5 +1,6 @@
 
-#include <iostream> include <map>
+#include <iostream>
+# include <map>
 struct order{
 int id;
 char side;
